@@ -2,6 +2,8 @@ package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
 
+import nz.ac.auckland.se281.Types.Location;
+
 public class OperatorManagementSystem {
 
   // Do not change the parameters of the constructor
@@ -18,13 +20,8 @@ public class OperatorManagementSystem {
 
   public void createOperator(String operatorName, String location) {
 
-    Types.Location locationToAssign = null;
-
-    for (Types.Location thisLocation : Types.Location.values()) {
-      if (thisLocation.getLocationAbbreviation().toLowerCase().equals(location.strip().toLowerCase())) {
-        locationToAssign = thisLocation;
-      }
-    }
+    // Assign the a location based on the user's input location string
+    Types.Location locationToAssign = Location.fromString(location);
     if (locationToAssign == null) {
       MessageCli.OPERATOR_NOT_CREATED_INVALID_LOCATION.printMessage(location);
       return;
