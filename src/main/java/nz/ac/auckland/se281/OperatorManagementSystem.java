@@ -30,19 +30,46 @@ public class OperatorManagementSystem {
       return;
     }
 
+    // Ensure that the operator name has more than 3 characters
     if (operatorName.strip().length() < 3) {
       MessageCli.OPERATOR_NOT_CREATED_INVALID_OPERATOR_NAME.printMessage(operatorName);
       return;
     }
+
+    // Append the operator's initials to the operator ID
     String operatorID = "";
     String[] words = operatorName.split(" ");
     for (String word : words) {
       operatorID += Character.toString(word.charAt(0)).toUpperCase();
     }
+
+    // Append the location abbreviation to the operator ID
     operatorID += "-";
     operatorID += locationToAssign.getLocationAbbreviation().toUpperCase();
-    operatorID += "-";
 
+    // Check for duplicate operators in the same location
+    int operatorCount = 1;
+    for (Operator existingOperator : this.operators) {
+      if (existingOperator.getLocation() == locationToAssign) {
+        if (existingOperator.getName().equals(operatorName)) {
+          MessageCli.OPERATOR_NOT_CREATED_ALREADY_EXISTS_SAME_LOCATION.printMessage(operatorName, locationToAssign.getFullName());
+          return;
+        }
+        // Count each operator in the same location
+        operatorCount++;
+      }
+    }
+
+    // Append the three digit number to the operator ID
+    String threeDigitNumber = Integer.toString(operatorCount);
+    while (threeDigitNumber.length() < 3) {
+      // Pad the string with zeros count until it has 3 digits
+      threeDigitNumber = "0" + threeDigitNumber;
+    }
+    operatorID += "-";
+    operatorID += threeDigitNumber;
+
+    // Add the new operator to the array
     Operator newOperator = new Operator(operatorName, locationToAssign, operatorID);
     operators.add(newOperator);
     MessageCli.OPERATOR_CREATED.printMessage(operatorName, operatorID, locationToAssign.getFullName());
