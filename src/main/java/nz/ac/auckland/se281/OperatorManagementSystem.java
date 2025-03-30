@@ -30,9 +30,22 @@ public class OperatorManagementSystem {
       return;
     }
 
-    Operator newOperator = new Operator(operatorName, locationToAssign, "PLACEHOLDER");
+    if (operatorName.strip().length() < 3) {
+      MessageCli.OPERATOR_NOT_CREATED_INVALID_OPERATOR_NAME.printMessage(operatorName);
+      return;
+    }
+    String operatorID = "";
+    String[] words = operatorName.split(" ");
+    for (String word : words) {
+      operatorID += Character.toString(word.charAt(0)).toUpperCase();
+    }
+    operatorID += "-";
+    operatorID += locationToAssign.getLocationAbbreviation().toUpperCase();
+    operatorID += "-";
+
+    Operator newOperator = new Operator(operatorName, locationToAssign, operatorID);
     operators.add(newOperator);
-    MessageCli.OPERATOR_CREATED.printMessage(operatorName, "PLACEHOLDER", locationToAssign.getFullName());
+    MessageCli.OPERATOR_CREATED.printMessage(operatorName, operatorID, locationToAssign.getFullName());
   }
 
   public void viewActivities(String operatorId) {
