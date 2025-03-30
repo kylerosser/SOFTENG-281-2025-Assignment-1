@@ -19,9 +19,8 @@ public class OperatorManagementSystem {
   public void createOperator(String operatorName, String location) {
 
     Types.Location locationToAssign = null;
-    System.out.println(location.strip().toLowerCase());
+
     for (Types.Location thisLocation : Types.Location.values()) {
-      System.out.println(thisLocation.getLocationAbbreviation().toLowerCase());
       if (thisLocation.getLocationAbbreviation().toLowerCase().equals(location.strip().toLowerCase())) {
         locationToAssign = thisLocation;
       }
@@ -33,7 +32,7 @@ public class OperatorManagementSystem {
 
     Operator newOperator = new Operator(operatorName, locationToAssign, "PLACEHOLDER");
     operators.add(newOperator);
-    MessageCli.OPERATOR_CREATED.printMessage(operatorName, "PLACEHOLDER", location);
+    MessageCli.OPERATOR_CREATED.printMessage(operatorName, "PLACEHOLDER", locationToAssign.getFullName());
   }
 
   public void viewActivities(String operatorId) {
