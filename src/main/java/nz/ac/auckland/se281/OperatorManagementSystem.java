@@ -12,11 +12,28 @@ public class OperatorManagementSystem {
   public void searchOperators(String keyword) {
     if (this.operators.size() == 0) {
       MessageCli.CUSTOM.printMessage("There are no matching operators found.");
+      return;
     }
   }
 
   public void createOperator(String operatorName, String location) {
-    // TODO implement
+
+    Types.Location locationToAssign = null;
+    System.out.println(location.strip().toLowerCase());
+    for (Types.Location thisLocation : Types.Location.values()) {
+      System.out.println(thisLocation.getLocationAbbreviation().toLowerCase());
+      if (thisLocation.getLocationAbbreviation().toLowerCase().equals(location.strip().toLowerCase())) {
+        locationToAssign = thisLocation;
+      }
+    }
+    if (locationToAssign == null) {
+      MessageCli.OPERATOR_NOT_CREATED_INVALID_LOCATION.printMessage(location);
+      return;
+    }
+
+    Operator newOperator = new Operator(operatorName, locationToAssign, "PLACEHOLDER");
+    operators.add(newOperator);
+    MessageCli.OPERATOR_CREATED.printMessage(operatorName, "PLACEHOLDER", location);
   }
 
   public void viewActivities(String operatorId) {
