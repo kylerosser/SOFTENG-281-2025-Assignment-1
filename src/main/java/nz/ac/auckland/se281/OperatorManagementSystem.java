@@ -20,11 +20,10 @@ public class OperatorManagementSystem {
       queriedOperators = this.operators;
     } else {
       for (Operator thisOperator : this.operators) {
-        boolean matchesLocationTeReo = thisOperator.getLocation().getNameTeReo().toLowerCase().contains(sanitisedKeyword);
-        boolean matchesLocationEnglish = thisOperator.getLocation().getNameEnglish().toLowerCase().contains(sanitisedKeyword);
+        boolean matchesLocationFullName = thisOperator.getLocation().getFullName().toLowerCase().contains(sanitisedKeyword);
         boolean matchesName = thisOperator.getName().toLowerCase().contains(sanitisedKeyword);
         boolean matchesLocationAbbreviation = thisOperator.getLocation().getLocationAbbreviation().toLowerCase().contains(sanitisedKeyword);
-        if (matchesLocationTeReo || matchesLocationEnglish || matchesName || matchesLocationAbbreviation) {
+        if (matchesLocationFullName || matchesName || matchesLocationAbbreviation) {
           queriedOperators.add(thisOperator);
         }
       }
