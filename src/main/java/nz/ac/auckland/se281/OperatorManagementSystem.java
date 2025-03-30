@@ -12,7 +12,20 @@ public class OperatorManagementSystem {
   public ArrayList<Operator> operators = new ArrayList<Operator>();
 
   public void searchOperators(String keyword) {
-    int numberOfOperators = this.operators.size();
+    ArrayList<Operator> queriedOperators = new ArrayList<Operator>();
+
+    // Handle case of asterisk (display all operators):
+    if (keyword.strip().equals("*")) {
+      queriedOperators = this.operators;
+    } else {
+      for (Operator thisOperator : this.operators) {
+        if (thisOperator.getLocation().getNameTeReo().toLowerCase().equals(keyword.toLowerCase())) {
+          queriedOperators.add(thisOperator);
+        }
+      }
+    }
+
+    int numberOfOperators = queriedOperators.size();
     if (numberOfOperators == 0) {
       MessageCli.OPERATORS_FOUND.printMessage("are", "no", "s", ".");
       return;
@@ -21,7 +34,7 @@ public class OperatorManagementSystem {
     } else {
       MessageCli.OPERATORS_FOUND.printMessage("are", Integer.toString(numberOfOperators), "s", ":");
     }
-    for (Operator thisOperator : this.operators) {
+    for (Operator thisOperator : queriedOperators) {
       MessageCli.OPERATOR_ENTRY.printMessage(thisOperator.getName(), thisOperator.getOperatorID(), thisOperator.getLocation().getFullName());
     }
   }
