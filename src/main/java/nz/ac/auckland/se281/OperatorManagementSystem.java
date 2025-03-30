@@ -12,9 +12,17 @@ public class OperatorManagementSystem {
   public ArrayList<Operator> operators = new ArrayList<Operator>();
 
   public void searchOperators(String keyword) {
-    if (this.operators.size() == 0) {
-      MessageCli.CUSTOM.printMessage("There are no matching operators found.");
+    int numberOfOperators = this.operators.size();
+    if (numberOfOperators == 0) {
+      MessageCli.OPERATORS_FOUND.printMessage("are", "no", "s", ".");
       return;
+    } else if (numberOfOperators == 1) {
+      MessageCli.OPERATORS_FOUND.printMessage("is", "1", "", ":");
+    } else {
+      MessageCli.OPERATORS_FOUND.printMessage("are", Integer.toString(numberOfOperators), "", ":");
+    }
+    for (Operator thisOperator : this.operators) {
+      MessageCli.OPERATOR_ENTRY.printMessage(thisOperator.getName(), thisOperator.getOperatorID(), thisOperator.getLocation().getFullName());
     }
   }
 
