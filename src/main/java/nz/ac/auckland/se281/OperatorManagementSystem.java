@@ -21,6 +21,8 @@ public class OperatorManagementSystem {
       for (Operator thisOperator : this.operators) {
         if (thisOperator.getLocation().getNameTeReo().toLowerCase().equals(keyword.toLowerCase())) {
           queriedOperators.add(thisOperator);
+        } else if (thisOperator.getLocation().getNameEnglish().toLowerCase().equals(keyword.toLowerCase())) {
+          queriedOperators.add(thisOperator);
         }
       }
     }
