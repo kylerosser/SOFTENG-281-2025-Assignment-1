@@ -13,15 +13,18 @@ public class OperatorManagementSystem {
 
   public void searchOperators(String keyword) {
     ArrayList<Operator> queriedOperators = new ArrayList<Operator>();
+    String sanitisedKeyword = keyword.strip().toLowerCase();
 
     // Handle case of asterisk (display all operators):
     if (keyword.strip().equals("*")) {
       queriedOperators = this.operators;
     } else {
       for (Operator thisOperator : this.operators) {
-        if (thisOperator.getLocation().getNameTeReo().toLowerCase().equals(keyword.toLowerCase())) {
-          queriedOperators.add(thisOperator);
-        } else if (thisOperator.getLocation().getNameEnglish().toLowerCase().equals(keyword.toLowerCase())) {
+        boolean matchesLocationTeReo = thisOperator.getLocation().getNameTeReo().toLowerCase().contains(sanitisedKeyword);
+        boolean matchesLocationEnglish = thisOperator.getLocation().getNameEnglish().toLowerCase().contains(sanitisedKeyword);
+        boolean matchesName = thisOperator.getName().toLowerCase().contains(sanitisedKeyword);
+        boolean matchesLocationAbbreviation = thisOperator.getLocation().getLocationAbbreviation().toLowerCase().contains(sanitisedKeyword);
+        if (matchesLocationTeReo || matchesLocationEnglish || matchesName || matchesLocationAbbreviation) {
           queriedOperators.add(thisOperator);
         }
       }
