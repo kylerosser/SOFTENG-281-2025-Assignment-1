@@ -19,7 +19,7 @@ public class OperatorManagementSystem {
     } else if (numberOfOperators == 1) {
       MessageCli.OPERATORS_FOUND.printMessage("is", "1", "", ":");
     } else {
-      MessageCli.OPERATORS_FOUND.printMessage("are", Integer.toString(numberOfOperators), "", ":");
+      MessageCli.OPERATORS_FOUND.printMessage("are", Integer.toString(numberOfOperators), "s", ":");
     }
     for (Operator thisOperator : this.operators) {
       MessageCli.OPERATOR_ENTRY.printMessage(thisOperator.getName(), thisOperator.getOperatorID(), thisOperator.getLocation().getFullName());
