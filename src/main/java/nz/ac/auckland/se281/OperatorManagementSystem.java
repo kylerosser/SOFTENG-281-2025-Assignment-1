@@ -1,12 +1,18 @@
 package nz.ac.auckland.se281;
 
+import java.util.ArrayList;
+
 public class OperatorManagementSystem {
 
   // Do not change the parameters of the constructor
   public OperatorManagementSystem() {}
 
+  public ArrayList<Operator> operators = new ArrayList<Operator>();
+
   public void searchOperators(String keyword) {
-    // TODO implement
+    if (this.operators.size() == 0) {
+      MessageCli.CUSTOM.printMessage("There are no matching operators found.");
+    }
   }
 
   public void createOperator(String operatorName, String location) {
