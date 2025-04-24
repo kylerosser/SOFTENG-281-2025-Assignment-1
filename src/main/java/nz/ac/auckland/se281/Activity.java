@@ -1,12 +1,12 @@
-package nz.ac.auckland;
+package nz.ac.auckland.se281;
 
-import nz.ac.auckland.se281.Types;
+import nz.ac.auckland.se281.Types.ActivityType;
 
 public class Activity {
   private String name;
-  private Types.ActivityType activityType;
+  private ActivityType activityType;
 
-  public Activity(String name, Types.ActivityType activityType) {
+  public Activity(String name, ActivityType activityType) {
     this.name = name;
     this.activityType = activityType;
   }
@@ -19,11 +19,11 @@ public class Activity {
     this.name = name;
   }
 
-  public Types.ActivityType getActivityType() {
+  public ActivityType getActivityType() {
     return activityType;
   }
 
-  public void setActivityType(Types.ActivityType activityType) {
+  public void setActivityType(ActivityType activityType) {
     this.activityType = activityType;
   }
 }
