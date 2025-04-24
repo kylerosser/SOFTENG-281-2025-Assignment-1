@@ -218,7 +218,7 @@ public class OperatorManagementSystem {
   }
 
   public void searchActivities(String keyword) {
-    // TODO implement
+    MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
   }
 
   public void addPublicReview(String activityId, String[] options) {
