@@ -218,7 +218,21 @@ public class OperatorManagementSystem {
   }
 
   public void searchActivities(String keyword) {
-    MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
+    // Iterate over all activities and save matching activities to a query list
+    ArrayList<Activity> activityQueryList = new ArrayList<Activity>();
+    for (Operator thisOperator : operators) {
+      for (Activity thisActivity : thisOperator.getActivityList()) {
+        activityQueryList.add(thisActivity);
+      }
+    }
+    if (activityQueryList.size() == 0) {
+      MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
+    } else if (activityQueryList.size() == 1){
+      MessageCli.ACTIVITIES_FOUND.printMessage("is", "1", "y", ":");
+    } else {
+      MessageCli.ACTIVITIES_FOUND.printMessage("are", Integer.toString(activityQueryList.size()), "ies", ":");
+    }
+    
   }
 
   public void addPublicReview(String activityId, String[] options) {
