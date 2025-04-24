@@ -1,6 +1,8 @@
 package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
+
+import nz.ac.auckland.se281.Types.ActivityType;
 import nz.ac.auckland.se281.Types.Location;
 
 public class OperatorManagementSystem {
@@ -166,6 +168,23 @@ public class OperatorManagementSystem {
       return;
     }
 
+    // Get the number of activities in the operator
+    ArrayList<Activity> activityList = operator.getActivityList();
+    int activityCount = activityList.size();
+
+    // Create the three digit number as a formatted string
+    String threeDigitNumber = Integer.toString(activityCount);
+    while (threeDigitNumber.length() < 3) {
+      // Pad the string with zeros count until it has 3 digits
+      threeDigitNumber = "0" + threeDigitNumber;
+    }
+
+    // Create the activity Id
+    String activityId = operatorId + "-" + threeDigitNumber;
+
+    Activity newActivity = new Activity(activityName, activityId, ActivityType.fromString(activityType));
+    activityList.add(newActivity);
+    MessageCli.ACTIVITY_CREATED.printMessage(activityId);
   }
 
   public void searchActivities(String keyword) {

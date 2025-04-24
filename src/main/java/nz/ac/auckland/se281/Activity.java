@@ -4,11 +4,13 @@ import nz.ac.auckland.se281.Types.ActivityType;
 
 public class Activity {
   private String name;
+  private String activityId;
   private ActivityType activityType;
 
-  public Activity(String name, ActivityType activityType) {
+  public Activity(String name, String activityId, ActivityType activityType) {
     this.name = name;
     this.activityType = activityType;
+    this.activityId = activityId;
   }
 
   public String getName() {
@@ -25,5 +27,13 @@ public class Activity {
 
   public void setActivityType(ActivityType activityType) {
     this.activityType = activityType;
+  }
+
+  public String getActivityId() {
+    return activityId;
+  }
+
+  public void setActivityId(String activityId) {
+    this.activityId = activityId;
   }
 }
