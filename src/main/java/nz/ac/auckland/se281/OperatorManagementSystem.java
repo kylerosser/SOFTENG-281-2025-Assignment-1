@@ -187,7 +187,12 @@ public class OperatorManagementSystem {
 
     Activity newActivity = new Activity(activityName, activityId, convertedActivityType);
     activityList.add(newActivity);
-    MessageCli.ACTIVITY_CREATED.printMessage(activityId);
+    MessageCli.ACTIVITY_CREATED.printMessage(
+      activityName, 
+      activityId, 
+      convertedActivityType.toString(), 
+      operator.getName()
+    );
   }
 
   public void searchActivities(String keyword) {
