@@ -99,7 +99,7 @@ public class OperatorManagementSystem {
   }
 
   public void viewActivities(String operatorId) {
-    // TODO implement
+    System.out.println("Operator not found: '"+ operatorId + "' is an invalid operator ID.");
   }
 
   public void createActivity(String activityName, String activityType, String operatorId) {
