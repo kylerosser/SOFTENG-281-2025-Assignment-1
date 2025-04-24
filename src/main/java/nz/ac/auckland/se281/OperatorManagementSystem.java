@@ -142,7 +142,29 @@ public class OperatorManagementSystem {
       return;
     }
 
-    MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
+    // Get the list of all activities under this operator
+    ArrayList<Activity> activityList = operator.getActivityList();
+
+    // Print an appropriate message if no activities found
+    if (activityList.size() == 0) {
+      MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
+      return;
+    }
+
+    // Display all matching activities (watching out for pluralisation)
+    if (activityList.size() == 1) {
+      MessageCli.ACTIVITIES_FOUND.printMessage("is", "1", "y", ":");
+    } else {
+      MessageCli.ACTIVITIES_FOUND.printMessage("are", Integer.toString(activityList.size()), "ies", ":");
+    }
+    for (Activity thisActivity : activityList) {
+      MessageCli.ACTIVITY_ENTRY.printMessage(
+        thisActivity.getName(),
+        thisActivity.getActivityId(),
+        thisActivity.getActivityType().toString(),
+        operator.getName()
+      );
+    }
     
   }
 
