@@ -1,7 +1,6 @@
 package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
-
 import nz.ac.auckland.se281.Types.Location;
 
 public class OperatorManagementSystem {
@@ -9,22 +8,49 @@ public class OperatorManagementSystem {
   // Do not change the parameters of the constructor
   public OperatorManagementSystem() {}
 
-  public ArrayList<Operator> operators = new ArrayList<Operator>();
+  private ArrayList<Operator> operators = new ArrayList<Operator>();
 
   public void searchOperators(String keyword) {
+    // Create a list to store operators that match
+    // the keyword query.
     ArrayList<Operator> queriedOperators = new ArrayList<Operator>();
+
     String sanitisedKeyword = keyword.strip().toLowerCase();
 
     // Handle case of asterisk (display all operators):
     if (keyword.strip().equals("*")) {
       queriedOperators = this.operators;
     } else {
+      // Search for any operators that match the keyword
+      // and add them to the queriedOperators list
       for (Operator thisOperator : this.operators) {
-        boolean matchesLocationTeReoName = thisOperator.getLocation().getNameTeReo().toLowerCase().contains(sanitisedKeyword);
-        boolean matchesLocationEnglishName = thisOperator.getLocation().getNameEnglish().toLowerCase().contains(sanitisedKeyword);
-        boolean matchesName = thisOperator.getName().toLowerCase().contains(sanitisedKeyword);
-        boolean matchesLocationAbbreviation = thisOperator.getLocation().getLocationAbbreviation().toLowerCase().contains(sanitisedKeyword);
-        if (matchesLocationTeReoName || matchesLocationEnglishName || matchesName || matchesLocationAbbreviation) {
+        Location thisLocation = thisOperator.getLocation();
+
+        boolean matchesLocationTeReoName = thisLocation.getNameTeReo()
+          .toLowerCase()
+          .contains(sanitisedKeyword);
+        
+        boolean matchesLocationEnglishName = thisLocation.getNameEnglish()
+          .toLowerCase()
+          .contains(sanitisedKeyword);
+
+        boolean matchesName = thisOperator.getName()
+          .toLowerCase()
+          .contains(sanitisedKeyword);
+
+        boolean matchesLocationAbbreviation = thisLocation
+          .getLocationAbbreviation()
+          .toLowerCase()
+          .contains(sanitisedKeyword);
+
+        // If it matches any of the names or locations then
+        // add this operator to the query list
+        if (
+          matchesLocationTeReoName ||
+          matchesLocationEnglishName ||
+          matchesName ||
+          matchesLocationAbbreviation
+        ) {
           queriedOperators.add(thisOperator);
         }
       }
@@ -40,7 +66,7 @@ public class OperatorManagementSystem {
       MessageCli.OPERATORS_FOUND.printMessage("are", Integer.toString(numberOfOperators), "s", ":");
     }
     for (Operator thisOperator : queriedOperators) {
-      MessageCli.OPERATOR_ENTRY.printMessage(thisOperator.getName(), thisOperator.getOperatorID(), thisOperator.getLocation().getFullName());
+      MessageCli.OPERATOR_ENTRY.printMessage(thisOperator.getName(), thisOperator.getOperatorId(), thisOperator.getLocation().getFullName());
     }
   }
 
@@ -60,15 +86,15 @@ public class OperatorManagementSystem {
     }
 
     // Append the operator's initials to the operator ID
-    String operatorID = "";
+    String operatorId = "";
     String[] words = operatorName.split(" ");
     for (String word : words) {
-      operatorID += Character.toString(word.charAt(0)).toUpperCase();
+      operatorId += Character.toString(word.charAt(0)).toUpperCase();
     }
 
     // Append the location abbreviation to the operator ID
-    operatorID += "-";
-    operatorID += locationToAssign.getLocationAbbreviation().toUpperCase();
+    operatorId += "-";
+    operatorId += locationToAssign.getLocationAbbreviation().toUpperCase();
 
     // Check for duplicate operators in the same location
     int operatorCount = 1;
@@ -89,20 +115,20 @@ public class OperatorManagementSystem {
       // Pad the string with zeros count until it has 3 digits
       threeDigitNumber = "0" + threeDigitNumber;
     }
-    operatorID += "-";
-    operatorID += threeDigitNumber;
+    operatorId += "-";
+    operatorId += threeDigitNumber;
 
     // Add the new operator to the array
-    Operator newOperator = new Operator(operatorName, locationToAssign, operatorID);
+    Operator newOperator = new Operator(operatorName, locationToAssign, operatorId);
     operators.add(newOperator);
-    MessageCli.OPERATOR_CREATED.printMessage(operatorName, operatorID, locationToAssign.getFullName());
+    MessageCli.OPERATOR_CREATED.printMessage(operatorName, operatorId, locationToAssign.getFullName());
   }
 
   public void viewActivities(String operatorId) {
     // Search for operators that match the supplied operatorId
     Operator operator = null;
     for (Operator thisOperator : this.operators) {
-      if (thisOperator.getOperatorID().equals(operatorId)) {
+      if (thisOperator.getOperatorId().equals(operatorId)) {
         operator = thisOperator;
         break;
       }
@@ -128,7 +154,7 @@ public class OperatorManagementSystem {
     // Search for operators that match the operatorId
     Operator operator = null;
     for (Operator thisOperator : this.operators) {
-      if (thisOperator.getOperatorID().equals(operatorId)) {
+      if (thisOperator.getOperatorId().equals(operatorId)) {
         operator = thisOperator;
         break;
       }
