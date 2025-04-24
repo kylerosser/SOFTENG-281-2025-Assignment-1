@@ -99,7 +99,23 @@ public class OperatorManagementSystem {
   }
 
   public void viewActivities(String operatorId) {
-    System.out.println("Operator not found: '"+ operatorId + "' is an invalid operator ID.");
+    // Search for operators that match the supplied operatorId
+    Operator operator = null;
+    for (Operator thisOperator : this.operators) {
+      if (thisOperator.getOperatorID().equals(operatorId)) {
+        operator = thisOperator;
+        break;
+      }
+    }
+
+    // If no operators match the ID, tell the user and return
+    if (operator == null) {
+      MessageCli.OPERATOR_NOT_FOUND.printMessage(operatorId);
+      return;
+    }
+
+    MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
+    
   }
 
   public void createActivity(String activityName, String activityType, String operatorId) {
