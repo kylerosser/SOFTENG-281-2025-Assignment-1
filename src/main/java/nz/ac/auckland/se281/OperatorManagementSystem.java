@@ -173,7 +173,7 @@ public class OperatorManagementSystem {
     int activityCount = activityList.size();
 
     // Create the three digit number as a formatted string
-    String threeDigitNumber = Integer.toString(activityCount);
+    String threeDigitNumber = Integer.toString(activityCount + 1);
     while (threeDigitNumber.length() < 3) {
       // Pad the string with zeros count until it has 3 digits
       threeDigitNumber = "0" + threeDigitNumber;
@@ -182,7 +182,10 @@ public class OperatorManagementSystem {
     // Create the activity Id
     String activityId = operatorId + "-" + threeDigitNumber;
 
-    Activity newActivity = new Activity(activityName, activityId, ActivityType.fromString(activityType));
+    // Create the activity type from the string
+    ActivityType convertedActivityType = ActivityType.fromString(activityType);
+
+    Activity newActivity = new Activity(activityName, activityId, convertedActivityType);
     activityList.add(newActivity);
     MessageCli.ACTIVITY_CREATED.printMessage(activityId);
   }
