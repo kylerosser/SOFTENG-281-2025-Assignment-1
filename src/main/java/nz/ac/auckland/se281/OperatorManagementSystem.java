@@ -119,10 +119,27 @@ public class OperatorManagementSystem {
   }
 
   public void createActivity(String activityName, String activityType, String operatorId) {
+    // Reject an invalid activityName
     if (activityName.trim().length() < 3) {
       MessageCli.ACTIVITY_NOT_CREATED_INVALID_ACTIVITY_NAME.printMessage(activityName);
       return;
     }
+
+    // Search for operators that match the operatorId
+    Operator operator = null;
+    for (Operator thisOperator : this.operators) {
+      if (thisOperator.getOperatorID().equals(operatorId)) {
+        operator = thisOperator;
+        break;
+      }
+    }
+
+    // If no operators match the ID, tell the user and abort activity creation
+    if (operator == null) {
+      MessageCli.ACTIVITY_NOT_CREATED_INVALID_OPERATOR_ID.printMessage(operatorId);
+      return;
+    }
+
   }
 
   public void searchActivities(String keyword) {
