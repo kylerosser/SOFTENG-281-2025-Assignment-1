@@ -298,7 +298,28 @@ public class OperatorManagementSystem {
   }
 
   public void addPublicReview(String activityId, String[] options) {
-    // TODO implement
+    // unpack options[] into separate variables
+    //String name = options[0];
+    //boolean anonymous = options[1].equals("y");
+    //Integer rating = Math.max(1, Math.min(5, Integer.valueOf(options[2])));
+    //String comment = options[3];
+
+    // Find the Activity that matches activityId
+    Activity activity = null;
+    for (Operator thisOperator : operators) {
+      for (Activity thisActivity : thisOperator.getActivityList()) {
+        if (thisActivity.getActivityId().equals(activityId)) {
+          activity = thisActivity;
+        }
+      }
+    }
+
+    // If the activity cannot be found print an appropriate message
+    if (activity == null) {
+      MessageCli.REVIEW_NOT_ADDED_INVALID_ACTIVITY_ID.printMessage(activityId);
+      return;
+    }
+
   }
 
   public void addPrivateReview(String activityId, String[] options) {
