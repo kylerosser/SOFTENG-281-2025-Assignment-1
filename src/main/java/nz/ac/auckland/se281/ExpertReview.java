@@ -18,7 +18,17 @@ public class ExpertReview extends Review {
   }
   
   public void printEntry() {
-    
+    MessageCli.REVIEW_ENTRY_HEADER.printMessage(
+      Integer.toString(this.rating),
+      "5",
+      "Expert",
+      this.reviewId,
+      this.name
+    );
+    MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(this.comment);
+    if (this.recommended) {
+      MessageCli.REVIEW_ENTRY_RECOMMENDED.printMessage();
+    }
   }
 
   public boolean isRecommended() {
