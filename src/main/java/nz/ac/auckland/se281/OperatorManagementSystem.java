@@ -424,7 +424,24 @@ public class OperatorManagementSystem {
   }
 
   public void endorseReview(String reviewId) {
-    // TODO implement
+    Review review = null;
+    for (Operator thisOperator : operators) {
+      for (Activity thisActivity : thisOperator.getActivityList()) {
+        for (Review thisReview :thisActivity.getReviewList()) {
+          if (thisReview.getReviewId().equals(reviewId)) {
+            review = thisReview;
+          }
+        }
+      }
+    }
+
+    if (review == null || !(review instanceof PublicReview)) {
+      MessageCli.REVIEW_NOT_ENDORSED.printMessage(reviewId);
+      return;
+    }
+
+    ((PublicReview) review).setEndorsed(true);
+    MessageCli.REVIEW_ENDORSED.printMessage(reviewId);
   }
 
   public void resolveReview(String reviewId, String response) {

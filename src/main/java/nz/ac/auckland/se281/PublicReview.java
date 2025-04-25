@@ -27,7 +27,7 @@ public class PublicReview extends Review {
     );
     MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(this.comment);
     if (this.endorsed) {
-      MessageCli.REVIEW_ENDORSED.printMessage();
+      MessageCli.REVIEW_ENTRY_ENDORSED.printMessage();
     }
   }
 
