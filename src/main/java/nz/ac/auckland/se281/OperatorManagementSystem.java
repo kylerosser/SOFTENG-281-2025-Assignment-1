@@ -517,21 +517,57 @@ public class OperatorManagementSystem {
 
   public void displayTopActivities() {
     // Create two hashmaps to store the topAverage & activity per location
-    HashMap<Location, Integer> topAverage = new HashMap<Location, Integer>();
+    HashMap<Location, Double> topAverage = new HashMap<Location, Double>();
     HashMap<Location, Activity> topActivity = new HashMap<Location, Activity>();
 
-    // Initialise the topAverage to 0
+    // Initialise the topAverage to 0 for each location
     for (Location thisLocation : Location.values()) {
-      topAverage.put(thisLocation, 0);
+      topAverage.put(thisLocation, 0.0);
+    }
+
+    // Find the top average rated activity for each location
+    for (Location thisLocation : Location.values()) {
+      for (Operator thisOperator : operators) {
+        for (Activity thisActivity : thisOperator.getActivityList()) {
+
+          ArrayList<Review> thisReviewList = thisActivity.getReviewList();
+
+          // Move on if there are no reviews for this activity
+          if (thisReviewList.size() == 0) {
+            continue;
+          }
+
+          // Calculate the average rating for this review
+          int thisTotalRating = thisReviewList.get(0).getRating();
+          double thisAverage = thisTotalRating / thisReviewList.size();
+
+          // If this average rating is the highest we've seen so
+          // far, update our top activity hashmaps
+          if (thisAverage > topAverage.get(thisLocation)) {
+            topAverage.put(thisLocation, thisAverage);
+            topActivity.put(thisLocation, thisActivity);
+          }
+        }
+      }
     }
 
     // Display the results
     for (Location thisLocation : Location.values()) {
-      int thisTopAverage = topAverage.get(thisLocation);
-      if (thisTopAverage == 0) {
+      double thisTopAverage = topAverage.get(thisLocation);
+
+      // Print an appropriate message if there are no
+      // reviewed activities for this location
+      if (thisTopAverage == 0.0) {
         MessageCli.NO_REVIEWED_ACTIVITIES.printMessage(thisLocation.getFullName());
         continue;
       }
+
+      // Otherwise print an appropriate message, rounding the rating
+      MessageCli.TOP_ACTIVITY.printMessage(
+        thisLocation.getFullName(), 
+        topActivity.get(thisLocation).getName(),
+        Integer.toString((int) Math.round(thisTopAverage))
+      );
     }
 
   }
