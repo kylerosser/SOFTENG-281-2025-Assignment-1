@@ -27,15 +27,8 @@ public abstract class Review {
     ArrayList<Review> reviewList = this.activity.getReviewList();
     int reviewCount = reviewList.size();
 
-    // Create the three digit number as a formatted string
-    String threeDigitNumber = Integer.toString(reviewCount + 1);
-    while (threeDigitNumber.length() < 3) {
-      // Pad the string with zeros count until it has 3 digits
-      threeDigitNumber = "0" + threeDigitNumber;
-    }
-
     // Finish generating the review id
-    this.reviewId = this.reviewId + threeDigitNumber;
+    this.reviewId = this.reviewId + Integer.toString(reviewCount + 1);
   }
 
   public Activity getActivity() {
