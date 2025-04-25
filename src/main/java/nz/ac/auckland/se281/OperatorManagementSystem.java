@@ -326,12 +326,19 @@ public class OperatorManagementSystem {
       return;
     }
 
+    // Print an appropriate header (respecting plural/singular form)
     if (activity.getReviewList().size() == 0) {
       MessageCli.REVIEWS_FOUND.printMessage("are", "no", "s", activity.getName());
       return;
+    } else if (activity.getReviewList().size() == 1) {
+      MessageCli.REVIEWS_FOUND.printMessage("is", "1", "", activity.getName());
+    } else {
+      MessageCli.REVIEWS_FOUND.printMessage(
+        "are",
+        Integer.toString(activity.getReviewList().size()),
+        "s", 
+        activity.getName());
     }
-
-
   }
 
   public void endorseReview(String reviewId) {
