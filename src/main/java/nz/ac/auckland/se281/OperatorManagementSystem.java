@@ -529,17 +529,31 @@ public class OperatorManagementSystem {
     for (Location thisLocation : Location.values()) {
       for (Operator thisOperator : operators) {
         for (Activity thisActivity : thisOperator.getActivityList()) {
-
           ArrayList<Review> thisReviewList = thisActivity.getReviewList();
 
-          // Move on if there are no reviews for this activity
-          if (thisReviewList.size() == 0) {
+          // Tally up the ratings of, and count eligible reviews
+          int thisTotalRating = 0;
+          int thisTotalCount = 0;
+          for (Review thisReview : thisReviewList) {
+            // Only count public and expert reviews
+            if (
+              thisReview instanceof PublicReview ||
+              thisReview instanceof ExpertReview
+            ) {
+              thisTotalRating += thisReview.getRating();
+              thisTotalCount += 1;
+            }
+          }
+
+          // Move on if there are no eligible reviews for this activity
+          if (thisTotalCount == 0) {
             continue;
           }
 
-          // Calculate the average rating for this review
-          int thisTotalRating = thisReviewList.get(0).getRating();
-          double thisAverage = thisTotalRating / thisReviewList.size();
+          // Calculate the average rating for this activity
+          double thisAverage = 
+            ((double) thisTotalRating) / 
+            ((double) thisTotalCount);
 
           // If this average rating is the highest we've seen so
           // far, update our top activity hashmaps
