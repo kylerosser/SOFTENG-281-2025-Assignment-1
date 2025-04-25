@@ -1,6 +1,7 @@
 package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import nz.ac.auckland.se281.Types.ActivityType;
 import nz.ac.auckland.se281.Types.Location;
@@ -515,6 +516,23 @@ public class OperatorManagementSystem {
   }
 
   public void displayTopActivities() {
-    // TODO implement
+    // Create two hashmaps to store the topAverage & activity per location
+    HashMap<Location, Integer> topAverage = new HashMap<Location, Integer>();
+    HashMap<Location, Activity> topActivity = new HashMap<Location, Activity>();
+
+    // Initialise the topAverage to 0
+    for (Location thisLocation : Location.values()) {
+      topAverage.put(thisLocation, 0);
+    }
+
+    // Display the results
+    for (Location thisLocation : Location.values()) {
+      int thisTopAverage = topAverage.get(thisLocation);
+      if (thisTopAverage == 0) {
+        MessageCli.NO_REVIEWED_ACTIVITIES.printMessage(thisLocation.getFullName());
+        continue;
+      }
+    }
+
   }
 }
