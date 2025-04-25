@@ -218,19 +218,22 @@ public class OperatorManagementSystem {
   }
 
   public void searchActivities(String keyword) {
-
     String sanitisedKeyword = keyword.strip().toLowerCase();
 
     // Iterate over all activities and save matching activities to a query list
     ArrayList<Activity> activityQueryList = new ArrayList<Activity>();
     for (Operator thisOperator : operators) {
       for (Activity thisActivity : thisOperator.getActivityList()) {
-        // TODO: handle * case and handle keyword cases activity name&type, operator location (te reo english and abbrev)... all case insensitive and all substring
+        // If the keyword is an asterisk, we must add all
+        // activities to the query list
         if (sanitisedKeyword.equals("*")) {
           activityQueryList.add(thisActivity);
           continue;
         }
 
+        // If the keyword is not an asterisk, check if it
+        // matches activity name or type, or operator location
+        // and add matching activities to the query list.
         boolean matchesActivityName = thisActivity
           .getName()
           .toLowerCase()
@@ -272,6 +275,8 @@ public class OperatorManagementSystem {
 
       }
     }
+
+    // Handle plural/singular output messages
     if (activityQueryList.size() == 0) {
       MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
       return;
@@ -280,7 +285,8 @@ public class OperatorManagementSystem {
     } else {
       MessageCli.ACTIVITIES_FOUND.printMessage("are", Integer.toString(activityQueryList.size()), "ies", ":");
     }
-
+    
+    // Display all matching actvities from the query list
     for (Activity thisActivity : activityQueryList) {
       MessageCli.ACTIVITY_ENTRY.printMessage(
         thisActivity.getName(), 
