@@ -323,7 +323,7 @@ public class OperatorManagementSystem {
     PublicReview newReview = new PublicReview(activity, name, rating, comment, anonymous, false);
     activity.getReviewList().add(newReview);
 
-    MessageCli.REVIEW_ADDED.printMessage("Public", newReview.getReviewId(), activity.getActivityId());
+    MessageCli.REVIEW_ADDED.printMessage("Public", newReview.getReviewId(), activity.getName());
     
   }
 
@@ -355,7 +355,7 @@ public class OperatorManagementSystem {
     PrivateReview newReview = new PrivateReview(activity, name, rating, comment, email, followupRequested);
     activity.getReviewList().add(newReview);
 
-    MessageCli.REVIEW_ADDED.printMessage("Private", newReview.getReviewId(), activity.getActivityId());
+    MessageCli.REVIEW_ADDED.printMessage("Private", newReview.getReviewId(), activity.getName());
   }
 
   public void addExpertReview(String activityId, String[] options) {
@@ -384,7 +384,7 @@ public class OperatorManagementSystem {
     ExpertReview newReview = new ExpertReview(activity, name, rating, comment, recommended, "");
     activity.getReviewList().add(newReview);
 
-    MessageCli.REVIEW_ADDED.printMessage("Expert", newReview.getReviewId(), activity.getActivityId());
+    MessageCli.REVIEW_ADDED.printMessage("Expert", newReview.getReviewId(), activity.getName());
   }
 
   public void displayReviews(String activityId) {
