@@ -477,6 +477,11 @@ public class OperatorManagementSystem {
       MessageCli.REVIEW_NOT_RESOLVED.printMessage(reviewId);
       return;
     }
+
+    // Mark the review as resolved
+    ((PrivateReview) review).setResolved(true);
+    ((PrivateReview) review).setFollowupResponse(response);
+    MessageCli.REVIEW_RESOLVED.printMessage(reviewId);
   }
 
   public void uploadReviewImage(String reviewId, String imageName) {
