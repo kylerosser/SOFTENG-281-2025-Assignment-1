@@ -234,8 +234,15 @@ public class OperatorManagementSystem {
         boolean matchesActivityName = thisActivity.getName()
           .toLowerCase()
           .contains(sanitisedKeyword);
+
+        boolean matchesActivityType = thisActivity.getActivityType().toString()
+          .toLowerCase()
+          .contains(sanitisedKeyword);
         
-        if (matchesActivityName) {
+        if (
+          matchesActivityName ||
+          matchesActivityType
+        ) {
           activityQueryList.add(thisActivity);
         }
 
