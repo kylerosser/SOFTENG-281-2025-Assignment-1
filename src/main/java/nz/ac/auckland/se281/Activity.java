@@ -6,11 +6,13 @@ public class Activity {
   private String name;
   private String activityId;
   private ActivityType activityType;
+  private Operator operator;
 
-  public Activity(String name, String activityId, ActivityType activityType) {
+  public Activity(String name, String activityId, ActivityType activityType, Operator operator) {
     this.name = name;
     this.activityType = activityType;
     this.activityId = activityId;
+    this.operator = operator;
   }
 
   public String getName() {
@@ -35,5 +37,13 @@ public class Activity {
 
   public void setActivityId(String activityId) {
     this.activityId = activityId;
+  }
+
+  public Operator getOperator() {
+    return operator;
+  }
+
+  public void setOperator(Operator operator) {
+    this.operator = operator;
   }
 }

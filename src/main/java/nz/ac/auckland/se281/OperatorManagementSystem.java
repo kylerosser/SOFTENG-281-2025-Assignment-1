@@ -207,7 +207,7 @@ public class OperatorManagementSystem {
     // Create the activity type from the string
     ActivityType convertedActivityType = ActivityType.fromString(activityType);
 
-    Activity newActivity = new Activity(activityName, activityId, convertedActivityType);
+    Activity newActivity = new Activity(activityName, activityId, convertedActivityType, operator);
     activityList.add(newActivity);
     MessageCli.ACTIVITY_CREATED.printMessage(
       activityName, 
@@ -218,21 +218,46 @@ public class OperatorManagementSystem {
   }
 
   public void searchActivities(String keyword) {
+
+    String sanitisedKeyword = keyword.strip().toLowerCase();
+
     // Iterate over all activities and save matching activities to a query list
     ArrayList<Activity> activityQueryList = new ArrayList<Activity>();
     for (Operator thisOperator : operators) {
       for (Activity thisActivity : thisOperator.getActivityList()) {
-        activityQueryList.add(thisActivity);
+        // TODO: handle * case and handle keyword cases activity name&type, operator location (te reo english and abbrev)... all case insensitive and all substring
+        if (sanitisedKeyword.equals("*")) {
+          activityQueryList.add(thisActivity);
+          continue;
+        }
+
+        boolean matchesActivityName = thisActivity.getName()
+          .toLowerCase()
+          .contains(sanitisedKeyword);
+        
+        if (matchesActivityName) {
+          activityQueryList.add(thisActivity);
+        }
+
       }
     }
     if (activityQueryList.size() == 0) {
       MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
+      return;
     } else if (activityQueryList.size() == 1){
       MessageCli.ACTIVITIES_FOUND.printMessage("is", "1", "y", ":");
     } else {
       MessageCli.ACTIVITIES_FOUND.printMessage("are", Integer.toString(activityQueryList.size()), "ies", ":");
     }
-    
+
+    for (Activity thisActivity : activityQueryList) {
+      MessageCli.ACTIVITY_ENTRY.printMessage(
+        thisActivity.getName(), 
+        thisActivity.getActivityId(),
+        thisActivity.getActivityType().toString(),
+        thisActivity.getOperator().getName()
+      );
+    }
   }
 
   public void addPublicReview(String activityId, String[] options) {
