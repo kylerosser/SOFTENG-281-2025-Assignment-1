@@ -9,10 +9,10 @@ public class Operator {
   private String operatorId;
   private ArrayList<Activity> activityList;
 
-  public Operator(String name, Types.Location location, String operatorID) {
+  public Operator(String name, Types.Location location, String operatorId) {
     this.name = name;
     this.location = location;
-    this.operatorId = operatorID;
+    this.operatorId = operatorId;
     this.activityList = new ArrayList<Activity>();
   }
 
