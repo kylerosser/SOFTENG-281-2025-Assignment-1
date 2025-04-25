@@ -381,7 +381,7 @@ public class OperatorManagementSystem {
       return;
     }
 
-    ExpertReview newReview = new ExpertReview(activity, name, rating, comment, recommended, "");
+    ExpertReview newReview = new ExpertReview(activity, name, rating, comment, recommended);
     activity.getReviewList().add(newReview);
 
     MessageCli.REVIEW_ADDED.printMessage("Expert", newReview.getReviewId(), activity.getName());
@@ -509,8 +509,8 @@ public class OperatorManagementSystem {
       return;
     }
 
-    // Mark the review as resolved
-    ((ExpertReview) review).setImage(imageName);
+    // Add an image to the review
+    ((ExpertReview) review).getImages().add(imageName);
     MessageCli.REVIEW_IMAGE_ADDED.printMessage(imageName, reviewId);
   }
 

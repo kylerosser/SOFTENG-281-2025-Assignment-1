@@ -1,20 +1,21 @@
 package nz.ac.auckland.se281;
 
+import java.util.ArrayList;
+
 public class ExpertReview extends Review {
   private boolean recommended;
-  private String image;
+  private ArrayList<String> images;
 
   public ExpertReview(
     Activity activity, 
     String name, 
     Integer rating, 
     String comment,
-    boolean recommended,
-    String image
+    boolean recommended
   ) {
     super(activity, name, rating, comment);
     this.recommended = recommended;
-    this.image = image;
+    this.images = new ArrayList<String>();
   }
   
   public void printEntry() {
@@ -29,8 +30,12 @@ public class ExpertReview extends Review {
     if (this.recommended) {
       MessageCli.REVIEW_ENTRY_RECOMMENDED.printMessage();
     }
-    if (!this.image.equals("")) {
-      MessageCli.REVIEW_ENTRY_IMAGES.printMessage(this.image);
+    if (this.images.size() > 0) {
+      String imageListString = this.images.get(0);
+      for (int i = 1; i < this.images.size(); i++) {
+        imageListString = imageListString + "," + this.images.get(i);
+      }
+      MessageCli.REVIEW_ENTRY_IMAGES.printMessage(imageListString);
     }
   }
 
@@ -42,12 +47,11 @@ public class ExpertReview extends Review {
     this.recommended = recommended;
   }
 
-  public String getImage() {
-    return image;
+  public ArrayList<String> getImages() {
+    return images;
   }
 
-  public void setImage(String image) {
-    this.image = image;
+  public void setImages(ArrayList<String> images) {
+    this.images = images;
   }
-  
 }
