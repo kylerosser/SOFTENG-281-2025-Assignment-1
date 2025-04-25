@@ -424,6 +424,7 @@ public class OperatorManagementSystem {
   }
 
   public void endorseReview(String reviewId) {
+    // Find the review by id
     Review review = null;
     for (Operator thisOperator : operators) {
       for (Activity thisActivity : thisOperator.getActivityList()) {
@@ -435,11 +436,19 @@ public class OperatorManagementSystem {
       }
     }
 
-    if (review == null || !(review instanceof PublicReview)) {
+    // If the review doesn't exist print an appropriate message
+    if (review == null) {
+      MessageCli.REVIEW_NOT_FOUND.printMessage(reviewId);
+      return;
+    }
+
+    // If the review is not public it cannot be endorsed
+    if (!(review instanceof PublicReview)) {
       MessageCli.REVIEW_NOT_ENDORSED.printMessage(reviewId);
       return;
     }
 
+    // Update the endorsed status of the review
     ((PublicReview) review).setEndorsed(true);
     MessageCli.REVIEW_ENDORSED.printMessage(reviewId);
   }
