@@ -29,6 +29,9 @@ public class ExpertReview extends Review {
     if (this.recommended) {
       MessageCli.REVIEW_ENTRY_RECOMMENDED.printMessage();
     }
+    if (!this.image.equals("")) {
+      MessageCli.REVIEW_ENTRY_IMAGES.printMessage(this.image);
+    }
   }
 
   public boolean isRecommended() {

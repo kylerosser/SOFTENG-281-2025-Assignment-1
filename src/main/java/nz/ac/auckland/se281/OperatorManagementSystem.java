@@ -508,6 +508,10 @@ public class OperatorManagementSystem {
       MessageCli.REVIEW_IMAGE_NOT_ADDED_NOT_EXPERT.printMessage(reviewId);
       return;
     }
+
+    // Mark the review as resolved
+    ((ExpertReview) review).setImage(imageName);
+    MessageCli.REVIEW_IMAGE_ADDED.printMessage(imageName, reviewId);
   }
 
   public void displayTopActivities() {
