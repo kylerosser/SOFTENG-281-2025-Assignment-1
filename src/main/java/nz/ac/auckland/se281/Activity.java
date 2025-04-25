@@ -1,5 +1,6 @@
 package nz.ac.auckland.se281;
 
+import java.util.ArrayList;
 import nz.ac.auckland.se281.Types.ActivityType;
 
 public class Activity {
@@ -7,12 +8,14 @@ public class Activity {
   private String activityId;
   private ActivityType activityType;
   private Operator operator;
+  private ArrayList<Review> reviewList;
 
   public Activity(String name, String activityId, ActivityType activityType, Operator operator) {
     this.name = name;
     this.activityType = activityType;
     this.activityId = activityId;
     this.operator = operator;
+    this.reviewList = new ArrayList<Review>();
   }
 
   public String getName() {
@@ -45,5 +48,13 @@ public class Activity {
 
   public void setOperator(Operator operator) {
     this.operator = operator;
+  }
+
+  public ArrayList<Review> getReviewList() {
+    return reviewList;
+  }
+
+  public void setReviewList(ArrayList<Review> reviewList) {
+    this.reviewList = reviewList;
   }
 }

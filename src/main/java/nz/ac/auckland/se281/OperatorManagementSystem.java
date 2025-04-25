@@ -310,7 +310,28 @@ public class OperatorManagementSystem {
   }
 
   public void displayReviews(String activityId) {
-    // TODO implement
+    // Find the Activity that matches activityId
+    Activity activity = null;
+    for (Operator thisOperator : operators) {
+      for (Activity thisActivity : thisOperator.getActivityList()) {
+        if (thisActivity.getActivityId().equals(activityId)) {
+          activity = thisActivity;
+        }
+      }
+    }
+
+    // If the activity cannot be found print an appropriate message
+    if (activity == null) {
+      MessageCli.ACTIVITY_NOT_FOUND.printMessage(activityId);
+      return;
+    }
+
+    if (activity.getReviewList().size() == 0) {
+      MessageCli.REVIEWS_FOUND.printMessage("are", "no", "s", activity.getName());
+      return;
+    }
+
+
   }
 
   public void endorseReview(String reviewId) {
