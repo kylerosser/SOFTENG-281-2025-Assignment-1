@@ -17,8 +17,8 @@ public class PrivateReview extends Review {
     this.followupRequested = followupRequested;
   }
   
-  public String printEntry() {
-    return "";
+  public void printEntry() {
+    
   }
 
   public String getEmail() {

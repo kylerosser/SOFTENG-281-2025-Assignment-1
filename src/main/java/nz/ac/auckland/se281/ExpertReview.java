@@ -17,8 +17,8 @@ public class ExpertReview extends Review {
     this.image = image;
   }
   
-  public String printEntry() {
-    return "";
+  public void printEntry() {
+    
   }
 
   public boolean isRecommended() {

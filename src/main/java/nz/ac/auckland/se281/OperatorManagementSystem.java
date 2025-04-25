@@ -417,6 +417,10 @@ public class OperatorManagementSystem {
         "s", 
         activity.getName());
     }
+
+    for (Review thisReview : activity.getReviewList()) {
+      thisReview.printEntry();
+    }
   }
 
   public void endorseReview(String reviewId) {

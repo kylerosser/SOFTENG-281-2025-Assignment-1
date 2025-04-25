@@ -3,11 +3,11 @@ package nz.ac.auckland.se281;
 import java.util.ArrayList;
 
 public abstract class Review {
-  private Activity activity;
-  private String reviewId;
-  private String name;
-  private Integer rating;
-  private String comment;
+  protected Activity activity;
+  protected String reviewId;
+  protected String name;
+  protected Integer rating;
+  protected String comment;
 
   public Review(
     Activity activity, 
@@ -71,6 +71,6 @@ public abstract class Review {
     this.comment = comment;
   }
 
-  public abstract String printEntry();
+  public abstract void printEntry();
 
 }

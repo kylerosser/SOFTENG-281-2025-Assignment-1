@@ -17,8 +17,18 @@ public class PublicReview extends Review {
     this.endorsed = endorsed;
   }
 
-  public String printEntry() {
-    return "";
+  public void printEntry() {
+    MessageCli.REVIEW_ENTRY_HEADER.printMessage(
+      Integer.toString(this.rating),
+      "5",
+      "Public",
+      this.reviewId,
+      (this.anonymous) ? "Anonymous" : this.name
+    );
+    MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(this.comment);
+    if (this.endorsed) {
+      MessageCli.REVIEW_ENDORSED.printMessage();
+    }
   }
 
   public boolean isAnonymous() {
