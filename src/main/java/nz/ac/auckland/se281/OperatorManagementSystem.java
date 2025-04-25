@@ -298,13 +298,13 @@ public class OperatorManagementSystem {
   }
 
   public void addPublicReview(String activityId, String[] options) {
-    // unpack options[] into separate variables
-    //String name = options[0];
-    //boolean anonymous = options[1].equals("y");
-    //Integer rating = Math.max(1, Math.min(5, Integer.valueOf(options[2])));
-    //String comment = options[3];
+    // Unpack options[] into separate variables
+    String name = options[0];
+    boolean anonymous = options[1].equals("y");
+    Integer rating = Math.max(1, Math.min(5, Integer.valueOf(options[2])));
+    String comment = options[3];
 
-    // Find the Activity that matches activityId
+    // Find the Activity & Operator that matches activityId
     Activity activity = null;
     for (Operator thisOperator : operators) {
       for (Activity thisActivity : thisOperator.getActivityList()) {
@@ -320,6 +320,11 @@ public class OperatorManagementSystem {
       return;
     }
 
+    PublicReview newReview = new PublicReview(activity, name, rating, comment, anonymous, false);
+    activity.getReviewList().add(newReview);
+
+    MessageCli.REVIEW_ADDED.printMessage("Public", newReview.getReviewId(), activity.getActivityId());
+    
   }
 
   public void addPrivateReview(String activityId, String[] options) {
