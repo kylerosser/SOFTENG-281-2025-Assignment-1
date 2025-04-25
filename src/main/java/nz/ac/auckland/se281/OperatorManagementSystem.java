@@ -2,7 +2,6 @@ package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import nz.ac.auckland.se281.Types.ActivityType;
 import nz.ac.auckland.se281.Types.Location;
 
@@ -29,31 +28,23 @@ public class OperatorManagementSystem {
       for (Operator thisOperator : this.operators) {
         Location thisLocation = thisOperator.getLocation();
 
-        boolean matchesLocationTeReoName = thisLocation.getNameTeReo()
-          .toLowerCase()
-          .contains(sanitisedKeyword);
-        
-        boolean matchesLocationEnglishName = thisLocation.getNameEnglish()
-          .toLowerCase()
-          .contains(sanitisedKeyword);
+        boolean matchesLocationTeReoName =
+            thisLocation.getNameTeReo().toLowerCase().contains(sanitisedKeyword);
 
-        boolean matchesName = thisOperator.getName()
-          .toLowerCase()
-          .contains(sanitisedKeyword);
+        boolean matchesLocationEnglishName =
+            thisLocation.getNameEnglish().toLowerCase().contains(sanitisedKeyword);
 
-        boolean matchesLocationAbbreviation = thisLocation
-          .getLocationAbbreviation()
-          .toLowerCase()
-          .contains(sanitisedKeyword);
+        boolean matchesName = thisOperator.getName().toLowerCase().contains(sanitisedKeyword);
+
+        boolean matchesLocationAbbreviation =
+            thisLocation.getLocationAbbreviation().toLowerCase().contains(sanitisedKeyword);
 
         // If it matches any of the names or locations then
         // add this operator to the query list
-        if (
-          matchesLocationTeReoName ||
-          matchesLocationEnglishName ||
-          matchesName ||
-          matchesLocationAbbreviation
-        ) {
+        if (matchesLocationTeReoName
+            || matchesLocationEnglishName
+            || matchesName
+            || matchesLocationAbbreviation) {
           queriedOperators.add(thisOperator);
         }
       }
@@ -69,7 +60,10 @@ public class OperatorManagementSystem {
       MessageCli.OPERATORS_FOUND.printMessage("are", Integer.toString(numberOfOperators), "s", ":");
     }
     for (Operator thisOperator : queriedOperators) {
-      MessageCli.OPERATOR_ENTRY.printMessage(thisOperator.getName(), thisOperator.getOperatorId(), thisOperator.getLocation().getFullName());
+      MessageCli.OPERATOR_ENTRY.printMessage(
+          thisOperator.getName(),
+          thisOperator.getOperatorId(),
+          thisOperator.getLocation().getFullName());
     }
   }
 
@@ -104,7 +98,8 @@ public class OperatorManagementSystem {
     for (Operator existingOperator : this.operators) {
       if (existingOperator.getLocation() == locationToAssign) {
         if (existingOperator.getName().equals(operatorName)) {
-          MessageCli.OPERATOR_NOT_CREATED_ALREADY_EXISTS_SAME_LOCATION.printMessage(operatorName, locationToAssign.getFullName());
+          MessageCli.OPERATOR_NOT_CREATED_ALREADY_EXISTS_SAME_LOCATION.printMessage(
+              operatorName, locationToAssign.getFullName());
           return;
         }
         // Count each operator in the same location
@@ -124,7 +119,8 @@ public class OperatorManagementSystem {
     // Add the new operator to the array
     Operator newOperator = new Operator(operatorName, locationToAssign, operatorId);
     operators.add(newOperator);
-    MessageCli.OPERATOR_CREATED.printMessage(operatorName, operatorId, locationToAssign.getFullName());
+    MessageCli.OPERATOR_CREATED.printMessage(
+        operatorName, operatorId, locationToAssign.getFullName());
   }
 
   public void viewActivities(String operatorId) {
@@ -156,17 +152,16 @@ public class OperatorManagementSystem {
     if (activityList.size() == 1) {
       MessageCli.ACTIVITIES_FOUND.printMessage("is", "1", "y", ":");
     } else {
-      MessageCli.ACTIVITIES_FOUND.printMessage("are", Integer.toString(activityList.size()), "ies", ":");
+      MessageCli.ACTIVITIES_FOUND.printMessage(
+          "are", Integer.toString(activityList.size()), "ies", ":");
     }
     for (Activity thisActivity : activityList) {
       MessageCli.ACTIVITY_ENTRY.printMessage(
-        thisActivity.getName(),
-        thisActivity.getActivityId(),
-        thisActivity.getActivityType().toString(),
-        operator.getName()
-      );
+          thisActivity.getName(),
+          thisActivity.getActivityId(),
+          thisActivity.getActivityType().toString(),
+          operator.getName());
     }
-    
   }
 
   public void createActivity(String activityName, String activityType, String operatorId) {
@@ -208,14 +203,11 @@ public class OperatorManagementSystem {
     // Create the activity type from the string
     ActivityType convertedActivityType = ActivityType.fromString(activityType);
 
-    Activity newActivity = new Activity(activityName.trim(), activityId, convertedActivityType, operator);
+    Activity newActivity =
+        new Activity(activityName.trim(), activityId, convertedActivityType, operator);
     activityList.add(newActivity);
     MessageCli.ACTIVITY_CREATED.printMessage(
-      activityName.trim(), 
-      activityId, 
-      convertedActivityType.toString(), 
-      operator.getName()
-    );
+        activityName.trim(), activityId, convertedActivityType.toString(), operator.getName());
   }
 
   public void searchActivities(String keyword) {
@@ -235,45 +227,32 @@ public class OperatorManagementSystem {
         // If the keyword is not an asterisk, check if it
         // matches activity name or type, or operator location
         // and add matching activities to the query list.
-        boolean matchesActivityName = thisActivity
-          .getName()
-          .toLowerCase()
-          .contains(sanitisedKeyword);
+        boolean matchesActivityName =
+            thisActivity.getName().toLowerCase().contains(sanitisedKeyword);
 
-        boolean matchesActivityType = thisActivity
-          .getActivityType()
-          .toString()
-          .toLowerCase()
-          .contains(sanitisedKeyword);
+        boolean matchesActivityType =
+            thisActivity.getActivityType().toString().toLowerCase().contains(sanitisedKeyword);
 
-        boolean matchesOperatorLocationEnglish = thisOperator
-          .getLocation()
-          .getNameEnglish()
-          .toLowerCase()
-          .contains(sanitisedKeyword);
+        boolean matchesOperatorLocationEnglish =
+            thisOperator.getLocation().getNameEnglish().toLowerCase().contains(sanitisedKeyword);
 
-        boolean matchesOperatorLocationTeReo = thisOperator
-          .getLocation()
-          .getNameTeReo()
-          .toLowerCase()
-          .contains(sanitisedKeyword);
+        boolean matchesOperatorLocationTeReo =
+            thisOperator.getLocation().getNameTeReo().toLowerCase().contains(sanitisedKeyword);
 
-        boolean matchesOperatorLocationAbbreviation = thisOperator
-          .getLocation()
-          .getLocationAbbreviation()
-          .toLowerCase()
-          .contains(sanitisedKeyword);
-        
-        if (
-          matchesActivityName ||
-          matchesActivityType ||
-          matchesOperatorLocationEnglish ||
-          matchesOperatorLocationTeReo ||
-          matchesOperatorLocationAbbreviation
-        ) {
+        boolean matchesOperatorLocationAbbreviation =
+            thisOperator
+                .getLocation()
+                .getLocationAbbreviation()
+                .toLowerCase()
+                .contains(sanitisedKeyword);
+
+        if (matchesActivityName
+            || matchesActivityType
+            || matchesOperatorLocationEnglish
+            || matchesOperatorLocationTeReo
+            || matchesOperatorLocationAbbreviation) {
           activityQueryList.add(thisActivity);
         }
-
       }
     }
 
@@ -281,20 +260,20 @@ public class OperatorManagementSystem {
     if (activityQueryList.size() == 0) {
       MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
       return;
-    } else if (activityQueryList.size() == 1){
+    } else if (activityQueryList.size() == 1) {
       MessageCli.ACTIVITIES_FOUND.printMessage("is", "1", "y", ":");
     } else {
-      MessageCli.ACTIVITIES_FOUND.printMessage("are", Integer.toString(activityQueryList.size()), "ies", ":");
+      MessageCli.ACTIVITIES_FOUND.printMessage(
+          "are", Integer.toString(activityQueryList.size()), "ies", ":");
     }
-    
+
     // Display all matching actvities from the query list
     for (Activity thisActivity : activityQueryList) {
       MessageCli.ACTIVITY_ENTRY.printMessage(
-        thisActivity.getName(), 
-        thisActivity.getActivityId(),
-        thisActivity.getActivityType().toString(),
-        thisActivity.getOperator().getName()
-      );
+          thisActivity.getName(),
+          thisActivity.getActivityId(),
+          thisActivity.getActivityType().toString(),
+          thisActivity.getOperator().getName());
     }
   }
 
@@ -325,7 +304,6 @@ public class OperatorManagementSystem {
     activity.getReviewList().add(newReview);
 
     MessageCli.REVIEW_ADDED.printMessage("Public", newReview.getReviewId(), activity.getName());
-    
   }
 
   public void addPrivateReview(String activityId, String[] options) {
@@ -335,7 +313,6 @@ public class OperatorManagementSystem {
     Integer rating = Math.max(1, Math.min(5, Integer.valueOf(options[2])));
     String comment = options[3];
     boolean followupRequested = options[4].equals("y");
-    
 
     // Find the Activity & Operator that matches activityId
     Activity activity = null;
@@ -353,7 +330,8 @@ public class OperatorManagementSystem {
       return;
     }
 
-    PrivateReview newReview = new PrivateReview(activity, name, rating, comment, email, followupRequested);
+    PrivateReview newReview =
+        new PrivateReview(activity, name, rating, comment, email, followupRequested);
     activity.getReviewList().add(newReview);
 
     MessageCli.REVIEW_ADDED.printMessage("Private", newReview.getReviewId(), activity.getName());
@@ -413,10 +391,7 @@ public class OperatorManagementSystem {
       MessageCli.REVIEWS_FOUND.printMessage("is", "1", "", activity.getName());
     } else {
       MessageCli.REVIEWS_FOUND.printMessage(
-        "are",
-        Integer.toString(activity.getReviewList().size()),
-        "s", 
-        activity.getName());
+          "are", Integer.toString(activity.getReviewList().size()), "s", activity.getName());
     }
 
     for (Review thisReview : activity.getReviewList()) {
@@ -429,7 +404,7 @@ public class OperatorManagementSystem {
     Review review = null;
     for (Operator thisOperator : operators) {
       for (Activity thisActivity : thisOperator.getActivityList()) {
-        for (Review thisReview :thisActivity.getReviewList()) {
+        for (Review thisReview : thisActivity.getReviewList()) {
           if (thisReview.getReviewId().equals(reviewId)) {
             review = thisReview;
           }
@@ -459,7 +434,7 @@ public class OperatorManagementSystem {
     Review review = null;
     for (Operator thisOperator : operators) {
       for (Activity thisActivity : thisOperator.getActivityList()) {
-        for (Review thisReview :thisActivity.getReviewList()) {
+        for (Review thisReview : thisActivity.getReviewList()) {
           if (thisReview.getReviewId().equals(reviewId)) {
             review = thisReview;
           }
@@ -490,7 +465,7 @@ public class OperatorManagementSystem {
     Review review = null;
     for (Operator thisOperator : operators) {
       for (Activity thisActivity : thisOperator.getActivityList()) {
-        for (Review thisReview :thisActivity.getReviewList()) {
+        for (Review thisReview : thisActivity.getReviewList()) {
           if (thisReview.getReviewId().equals(reviewId)) {
             review = thisReview;
           }
@@ -536,10 +511,7 @@ public class OperatorManagementSystem {
           int thisTotalCount = 0;
           for (Review thisReview : thisReviewList) {
             // Only count public and expert reviews
-            if (
-              thisReview instanceof PublicReview ||
-              thisReview instanceof ExpertReview
-            ) {
+            if (thisReview instanceof PublicReview || thisReview instanceof ExpertReview) {
               thisTotalRating += thisReview.getRating();
               thisTotalCount += 1;
             }
@@ -551,9 +523,7 @@ public class OperatorManagementSystem {
           }
 
           // Calculate the average rating for this activity
-          double thisAverage = 
-            ((double) thisTotalRating) / 
-            ((double) thisTotalCount);
+          double thisAverage = ((double) thisTotalRating) / ((double) thisTotalCount);
 
           // If this average rating is the highest we've seen so
           // far, update our top activity hashmaps
@@ -578,11 +548,9 @@ public class OperatorManagementSystem {
 
       // Otherwise print an appropriate message, rounding the rating
       MessageCli.TOP_ACTIVITY.printMessage(
-        thisLocation.getFullName(), 
-        topActivity.get(thisLocation).getName(),
-        Integer.toString((int) Math.round(thisTopAverage))
-      );
+          thisLocation.getFullName(),
+          topActivity.get(thisLocation).getName(),
+          Integer.toString((int) Math.round(thisTopAverage)));
     }
-
   }
 }

@@ -9,12 +9,7 @@ public abstract class Review {
   protected Integer rating;
   protected String comment;
 
-  public Review(
-    Activity activity, 
-    String name, 
-    Integer rating, 
-    String comment
-  ) {
+  public Review(Activity activity, String name, Integer rating, String comment) {
     this.activity = activity;
     this.name = name;
     this.rating = rating;
@@ -72,5 +67,4 @@ public abstract class Review {
   }
 
   public abstract void printEntry();
-
 }

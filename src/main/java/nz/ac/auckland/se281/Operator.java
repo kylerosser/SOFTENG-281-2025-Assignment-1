@@ -8,7 +8,7 @@ public class Operator {
   private Types.Location location;
   private String operatorId;
   private ArrayList<Activity> activityList;
-  
+
   public Operator(String name, Types.Location location, String operatorID) {
     this.name = name;
     this.location = location;

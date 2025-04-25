@@ -7,28 +7,22 @@ public class PrivateReview extends Review {
   private boolean resolved;
 
   public PrivateReview(
-    Activity activity, 
-    String name, 
-    Integer rating, 
-    String comment,
-    String email,
-    boolean followupRequested
-  ) {
+      Activity activity,
+      String name,
+      Integer rating,
+      String comment,
+      String email,
+      boolean followupRequested) {
     super(activity, name, rating, comment);
     this.email = email;
     this.followupRequested = followupRequested;
     this.followupResponse = "";
     this.resolved = false;
   }
-  
+
   public void printEntry() {
     MessageCli.REVIEW_ENTRY_HEADER.printMessage(
-      Integer.toString(this.rating),
-      "5",
-      "Private",
-      this.reviewId,
-      this.name
-    );
+        Integer.toString(this.rating), "5", "Private", this.reviewId, this.name);
     MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(this.comment);
     if (this.followupRequested) {
       if (this.resolved) {
@@ -72,5 +66,4 @@ public class PrivateReview extends Review {
   public void setResolved(boolean resolved) {
     this.resolved = resolved;
   }
-  
 }
