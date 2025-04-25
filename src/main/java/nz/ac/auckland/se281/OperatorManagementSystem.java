@@ -208,10 +208,10 @@ public class OperatorManagementSystem {
     // Create the activity type from the string
     ActivityType convertedActivityType = ActivityType.fromString(activityType);
 
-    Activity newActivity = new Activity(activityName, activityId, convertedActivityType, operator);
+    Activity newActivity = new Activity(activityName.trim(), activityId, convertedActivityType, operator);
     activityList.add(newActivity);
     MessageCli.ACTIVITY_CREATED.printMessage(
-      activityName, 
+      activityName.trim(), 
       activityId, 
       convertedActivityType.toString(), 
       operator.getName()
