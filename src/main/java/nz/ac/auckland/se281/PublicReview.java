@@ -17,6 +17,7 @@ public class PublicReview extends Review {
   }
 
   public void printEntry() {
+    // Display an appropriate entry header message
     MessageCli.REVIEW_ENTRY_HEADER.printMessage(
         Integer.toString(this.rating),
         "5",
@@ -26,6 +27,7 @@ public class PublicReview extends Review {
 
     MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(this.comment);
 
+    // If this review is endorsed, display an appropriate message
     if (this.endorsed) {
       MessageCli.REVIEW_ENTRY_ENDORSED.printMessage();
     }

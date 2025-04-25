@@ -14,12 +14,19 @@ public class ExpertReview extends Review {
   }
 
   public void printEntry() {
+    // Display and appropriate header message
     MessageCli.REVIEW_ENTRY_HEADER.printMessage(
         Integer.toString(this.rating), "5", "Expert", this.reviewId, this.name);
+
     MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(this.comment);
+
+    // If this review is recommended, display so
     if (this.recommended) {
       MessageCli.REVIEW_ENTRY_RECOMMENDED.printMessage();
     }
+
+    // If there are images associated with this review
+    // display a list of them using the appropriate format
     if (this.images.size() > 0) {
       String imageListString = this.images.get(0);
       for (int i = 1; i < this.images.size(); i++) {

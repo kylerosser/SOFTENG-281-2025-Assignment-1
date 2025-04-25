@@ -21,10 +21,14 @@ public class PrivateReview extends Review {
   }
 
   public void printEntry() {
+    // Display an appropriate header message
     MessageCli.REVIEW_ENTRY_HEADER.printMessage(
         Integer.toString(this.rating), "5", "Private", this.reviewId, this.name);
     MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(this.comment);
+
+    // If a followup was requested, display an appropriate message
     if (this.followupRequested) {
+      // If a followup was requested but resolved, handle that too
       if (this.resolved) {
         MessageCli.REVIEW_ENTRY_RESOLVED.printMessage(this.followupResponse);
       } else {
