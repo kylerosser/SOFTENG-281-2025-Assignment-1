@@ -231,17 +231,41 @@ public class OperatorManagementSystem {
           continue;
         }
 
-        boolean matchesActivityName = thisActivity.getName()
+        boolean matchesActivityName = thisActivity
+          .getName()
           .toLowerCase()
           .contains(sanitisedKeyword);
 
-        boolean matchesActivityType = thisActivity.getActivityType().toString()
+        boolean matchesActivityType = thisActivity
+          .getActivityType()
+          .toString()
+          .toLowerCase()
+          .contains(sanitisedKeyword);
+
+        boolean matchesOperatorLocationEnglish = thisOperator
+          .getLocation()
+          .getNameEnglish()
+          .toLowerCase()
+          .contains(sanitisedKeyword);
+
+        boolean matchesOperatorLocationTeReo = thisOperator
+          .getLocation()
+          .getNameTeReo()
+          .toLowerCase()
+          .contains(sanitisedKeyword);
+
+        boolean matchesOperatorLocationAbbreviation = thisOperator
+          .getLocation()
+          .getLocationAbbreviation()
           .toLowerCase()
           .contains(sanitisedKeyword);
         
         if (
           matchesActivityName ||
-          matchesActivityType
+          matchesActivityType ||
+          matchesOperatorLocationEnglish ||
+          matchesOperatorLocationTeReo ||
+          matchesOperatorLocationAbbreviation
         ) {
           activityQueryList.add(thisActivity);
         }
