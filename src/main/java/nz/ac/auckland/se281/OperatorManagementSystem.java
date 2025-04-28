@@ -127,7 +127,7 @@ public class OperatorManagementSystem {
     // Search for operators that match the supplied operatorId
     Operator operator = null;
     for (Operator thisOperator : this.operators) {
-      if (thisOperator.getOperatorId().equals(operatorId)) {
+      if (thisOperator.getOperatorId().equalsIgnoreCase(operatorId)) {
         operator = thisOperator;
         break;
       }
@@ -174,7 +174,7 @@ public class OperatorManagementSystem {
     // Search for operators that match the operatorId
     Operator operator = null;
     for (Operator thisOperator : this.operators) {
-      if (thisOperator.getOperatorId().equals(operatorId)) {
+      if (thisOperator.getOperatorId().equalsIgnoreCase(operatorId)) {
         operator = thisOperator;
         break;
       }
@@ -288,7 +288,7 @@ public class OperatorManagementSystem {
     Activity activity = null;
     for (Operator thisOperator : operators) {
       for (Activity thisActivity : thisOperator.getActivityList()) {
-        if (thisActivity.getActivityId().equals(activityId)) {
+        if (thisActivity.getActivityId().equalsIgnoreCase(activityId)) {
           activity = thisActivity;
         }
       }
@@ -318,7 +318,7 @@ public class OperatorManagementSystem {
     Activity activity = null;
     for (Operator thisOperator : operators) {
       for (Activity thisActivity : thisOperator.getActivityList()) {
-        if (thisActivity.getActivityId().equals(activityId)) {
+        if (thisActivity.getActivityId().equalsIgnoreCase(activityId)) {
           activity = thisActivity;
         }
       }
@@ -348,7 +348,7 @@ public class OperatorManagementSystem {
     Activity activity = null;
     for (Operator thisOperator : operators) {
       for (Activity thisActivity : thisOperator.getActivityList()) {
-        if (thisActivity.getActivityId().equals(activityId)) {
+        if (thisActivity.getActivityId().equalsIgnoreCase(activityId)) {
           activity = thisActivity;
         }
       }
@@ -371,7 +371,7 @@ public class OperatorManagementSystem {
     Activity activity = null;
     for (Operator thisOperator : operators) {
       for (Activity thisActivity : thisOperator.getActivityList()) {
-        if (thisActivity.getActivityId().equals(activityId)) {
+        if (thisActivity.getActivityId().equalsIgnoreCase(activityId)) {
           activity = thisActivity;
         }
       }
@@ -466,7 +466,7 @@ public class OperatorManagementSystem {
     for (Operator thisOperator : operators) {
       for (Activity thisActivity : thisOperator.getActivityList()) {
         for (Review thisReview : thisActivity.getReviewList()) {
-          if (thisReview.getReviewId().equals(reviewId)) {
+          if (thisReview.getReviewId().equalsIgnoreCase(reviewId)) {
             review = thisReview;
           }
         }
