@@ -1,5 +1,5 @@
 # SOFTENG 281 Assignment 1
-Kyle Rosser
+This repository is an archive of an assignment completed for **SOFTENG 281 Object-Oriented Programming** at The University of Auckland.
 
 Grade: A+
 
